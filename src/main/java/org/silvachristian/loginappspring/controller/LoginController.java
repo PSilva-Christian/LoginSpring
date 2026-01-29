@@ -2,38 +2,43 @@ package org.silvachristian.loginappspring.controller;
 
 import org.silvachristian.loginappspring.entity.User;
 import org.silvachristian.loginappspring.service.LoginService;
+import org.springframework.security.authentication.jaas.LoginExceptionResolver;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/postgres")
+@Controller
 public class LoginController {
 
     private LoginService loginservice;
 
-    LoginController(LoginService loginService){
+    LoginController(LoginService loginService) {
         this.loginservice = loginService;
     }
-    
-    @PostMapping
-    List<User >create(@RequestBody User user){
-        return LoginService.create(user);
-    }
-    
-    @GetMapping
-    List<User> list(){
-        return LoginService.list();
-    }
-    
-    @PutMapping
-    List<User> update(@RequestBody User user){
-        return LoginService.update(user);
+
+    @RequestMapping("/login")
+    public String loginPage(){
+        return "login";
     }
 
-    @DeleteMapping("{id}")
-    List<User> delete(@PathVariable Long id){
-        return LoginService.delete(id);
+    @GetMapping("/signup")
+    public String registerPage(Model model){
+        model.addAttribute("user", new User());
+        return "signup";
     }
+
+    @PostMapping("/signup")
+    public String registerPage( @ModelAttribute("user") User user, RequestBody body){
+        LoginService.registerUser(user);
+        return "login";
+    }
+
+
+
+
 }
+
 

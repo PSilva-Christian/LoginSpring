@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login Spring</title>
+    </head>
+
+    <body class="text-bg-dark" style="font-family: 'Open Sans' ,sans-serif">
+
+        <div class="m-sm-3">
+            <div class="container-sm text-bg-dark border border-2 border-secondary rounded-pill">
+                <div class="text-center">
+                    <header style="margin-top: 1%;margin-bottom: 1%">
+                        <h2 class="text-white">Login Spring</h2>
+                        <small class="h6 text-light text-white-50">Login App using SpringBoot and PostgreSQL</small>
+                    </header>
+                </div>
+            </div>
+
+            <br style="margin-top: 1em">
+        </div>
+
+        <form class="form-label">
+
+            <div id="email" class="container row row-cols-2">
+                <div class="container text-end">
+                    <label for="email-input" class="col-form-label-sm" style="font-size: 18px">E-mail</label>
+                </div>
+
+                <div class="container row row-cols-5">
+                    <span>
+                        <input id="email-input" type="email" class="btn btn-outline-light text-center"
+                           placeholder="Insert your E-mail" autocomplete="false">
+                    </span>
+                </div>
+            </div>
+
+            <br style="margin-bottom: 1px">
+
+            <div id="password" class="container row row-cols-2">
+                <div class="container text-end">
+                    <label for="password-input" class="col-form-label-sm" style="font-size: 18px">Password</label>
+                </div>
+
+                <div class="container row row-col-5">
+                    <span>
+                        <input id="password-input" type="password" class="btn btn-outline-light text-center"
+                           placeholder="Insert your Password " autocomplete="false">
+                    </span>
+                </div>
+            </div>
+
+                <div class="container text-">
+                    <div class="row row-cols-2">
+                        <div class="container col-5">
+                            <a th:href="@{/signup}" style="font-size: 12px"> Doesn't have account?</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            <br style="margin-bottom: 1px">
+            <label for="submit-button" ></label>
+
+            <div class="container">
+                <div class="row row-col-2">
+                    <div class="containe text-center">
+                        <input type="submit" id="submit-button" value="Sign-in" class="btn btn-outline-light">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <br style="margin-bottom: 1px">
+
+        </form>
+
+    </body>
+</html>
