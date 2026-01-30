@@ -2,27 +2,39 @@ package org.silvachristian.loginappspring.service;
 
 import org.silvachristian.loginappspring.entity.User;
 import org.silvachristian.loginappspring.repository.LoginRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class LoginService {
-    private static LoginRepository loginrepository;
+    private final LoginRepository loginrepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public LoginService(LoginRepository loginRepository) {
-        LoginService.loginrepository = loginRepository;
+    public LoginService(LoginRepository loginRepository, PasswordEncoder passwordEncoder) {
+        this.loginrepository = loginRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+    public boolean registerUser(User postUser){
+        if (!loginrepository.existsByUsername(postUser.getUsername())) {
+            User newUser = new User();
+            newUser.setUsername(postUser.getUsername());
+            newUser.setEmail(postUser.getEmail());
+            newUser.setPassword(Objects.requireNonNull(passwordEncoder.encode(postUser.getPassword())));
+            loginrepository.save(newUser);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
-    public static void registerUser(User postUser){
-        User newUser = new User();
-        newUser.setUsername(postUser.getUsername());
-        newUser.setEmail(postUser.getEmail());
-        newUser.setPassword(postUser.getPassword());
-        loginrepository.save(newUser);
-
+    public User getUserCredentials(String username){
+        Optional<User> usernameResult = loginrepository.findByUsername(username);
+        return usernameResult.orElseGet(() -> null);
     }
 }
+

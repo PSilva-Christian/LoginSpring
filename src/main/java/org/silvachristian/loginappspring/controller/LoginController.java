@@ -1,39 +1,54 @@
 package org.silvachristian.loginappspring.controller;
 
 import org.silvachristian.loginappspring.entity.User;
+import org.silvachristian.loginappspring.repository.LoginRepository;
 import org.silvachristian.loginappspring.service.LoginService;
-import org.springframework.security.authentication.jaas.LoginExceptionResolver;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 public class LoginController {
 
-    private LoginService loginservice;
+    private final LoginService loginService;
+    private final LoginRepository loginRepository;
 
-    LoginController(LoginService loginService) {
-        this.loginservice = loginService;
+    LoginController(LoginService loginService, LoginRepository loginRepository) {
+        this.loginService = loginService;
+        this.loginRepository = loginRepository;
     }
 
     @RequestMapping("/login")
-    public String loginPage(){
+    public String showLoginPage(Model model){
+        model.addAttribute("user", new User());
         return "login";
     }
 
     @GetMapping("/signup")
-    public String registerPage(Model model){
+    public String showRegisterPage(Model model){
         model.addAttribute("user", new User());
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String registerPage( @ModelAttribute("user") User user, RequestBody body){
-        LoginService.registerUser(user);
-        return "login";
+    public String sendCredentialsRegisterPage(@ModelAttribute("user") User user){
+
+        if (loginService.registerUser(user)) {
+            return "redirect:/login";
+        }
+        return "signup";
+    }
+
+    @GetMapping("/dashboard")
+    public String showDashBoardUser(@AuthenticationPrincipal UserDetails currentUser, Model model){
+        User userResultDashboard = loginService.getUserCredentials(currentUser.getUsername());
+        model.addAttribute("username", userResultDashboard.getUsername());
+        model.addAttribute("email", userResultDashboard.getEmail());
+
+        return "dashboard";
     }
 
 

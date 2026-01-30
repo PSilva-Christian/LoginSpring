@@ -22,7 +22,7 @@
     <br style="margin-top: 1em">
 </div>
 
-<form th:action="@{/submit}" th:object="${user}"  method="post"  class="form-label">
+<form th:action="@{/signup}" th:object="${user}"  method="post"  class="form-label">
 
     <div id="username" class="container row row-cols-2">
         <div class="container text-end">
@@ -31,7 +31,7 @@
 
         <div class="container row row-cols-5">
                     <span>
-                        <input id="username-input" type="text" class="btn btn-outline-light text-center"
+                        <input th:field="*{username}" id="username-input" type="text" class="btn btn-outline-light text-center"
                                placeholder="Insert your Username" autocomplete="false">
                     </span>
         </div>
@@ -46,7 +46,7 @@
 
         <div class="container row row-cols-5">
                     <span>
-                        <input id="email-input" type="email" class="btn btn-outline-light text-center"
+                        <input th:field="*{email}" id="email-input" type="email" class="btn btn-outline-light text-center"
                                placeholder="Insert your E-mail" autocomplete="false">
                     </span>
         </div>
@@ -61,7 +61,7 @@
 
         <div class="container row row-col-5">
             <span>
-                <input id="password-input" type="password" class="btn btn-outline-light text-center"
+                <input th:field="*{password}" id="password-input" type="password" class="btn btn-outline-light text-center"
                        placeholder="Insert your Password " autocomplete="false">
             </span>
         </div>
