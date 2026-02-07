@@ -9,8 +9,6 @@ A login and registration application built with Spring Boot 3 and Spring Securit
 
     Persistent Storage: User credentials and profiles are managed in PostgreSQL.
 
-    Flash Attributes: Provides user feedback (like "Login successful" or "Invalid credentials") using Spring MVC's redirect attributes.
-
     Password Change: Enables the user to update/change the password.
 
 🛠️ Tech Stack
