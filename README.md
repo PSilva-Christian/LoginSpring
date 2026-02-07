@@ -1,7 +1,7 @@
-🔐 Secure User Authentication System
+🔐 Authentication System
 
 A login and registration application built with Spring Boot 3 and Spring Security. This project demonstrates for user management, password hashing, persistent storage in PostgreSQL, and a responsive frontend.
-🌟 Key Features
+🌟 Features
 
     Secure Registration: Users can create accounts with real-time validation.
 
